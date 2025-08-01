@@ -1,0 +1,38 @@
+{
+  "name": "io.github.ssmendon.obsidian-filename-plugin",
+  "version": "1.0.0",
+  "description": "An Obsidian plugin to help you name files in a cross-platform way.",
+  "keywords": [
+    "obsidian",
+    "obsidian-plugin"
+  ],
+  "homepage": "https://github.com/ssmendon/obsidian-filename-plugin#readme",
+  "bugs": {
+    "url": "https://github.com/ssmendon/obsidian-filename-plugin/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ssmendon/obsidian-filename-plugin.git"
+  },
+  "license": "ISC",
+  "author": "Sohum Mendon",
+  "type": "module",
+  "main": "dist/main.js",
+  "scripts": {
+    "dev": "node esbuild.config.mjs",
+    "build": "tsc -noEmit -skipLibCheck && node esbuild.config.mjs production",
+    "lint": "eslint ./src",
+    "test": "vitest",
+    "clean": "rm -r ./dist"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.32.0",
+    "esbuild": "^0.25.8",
+    "eslint": "^9.32.0",
+    "obsidian": "latest",
+    "tslib": "^2.8.1",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.38.0",
+    "vitest": "^3.2.4"
+  }
+}

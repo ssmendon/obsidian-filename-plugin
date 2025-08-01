@@ -1,0 +1,10 @@
+{
+    "id": "io.github.ssmendon.obsidian-filename-plugin",
+    "name": "Filename",
+    "version": "1.0.0",
+    "minAppVersion": "0.15.0",
+    "description": "Gives you a warning when a filename isn't cross-platform.",
+    "author": "Sohum Mendon",
+    "authorUrl": "https://github.com/ssmendon",
+    "isDesktopOnly": false
+}
