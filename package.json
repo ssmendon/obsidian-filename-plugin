@@ -21,7 +21,7 @@
   "scripts": {
     "dev": "node esbuild.config.mjs",
     "build": "tsc -noEmit -skipLibCheck && node esbuild.config.mjs production",
-    "lint": "eslint ./src",
+    "lint": "eslint",
     "test": "vitest",
     "clean": "rm -r ./dist"
   },
@@ -34,5 +34,8 @@
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.38.0",
     "vitest": "^3.2.4"
+  },
+  "volta": {
+    "node": "22.18.0"
   }
 }

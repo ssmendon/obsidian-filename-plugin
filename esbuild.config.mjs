@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 // @ts-check
 
 import * as esbuild from "esbuild";
@@ -45,6 +48,7 @@ if (prod) {
     process.exit(0);
 } else {
     // add a `.hotreload` file for the obsidian pjeby/hot-reload plugin
-    touch("./dist/.hotreload");
+    await touch("./dist/.hotreload");
+    await copied;
     await ctx.watch();
 }

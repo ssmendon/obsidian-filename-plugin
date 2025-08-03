@@ -1,6 +1,9 @@
 // source: https://stackoverflow.com/a/31976060
 // + COM0/LPT0
 
+/* eslint-disable @typescript-eslint/no-inferrable-types
+-- This conflicts with typescript's isolatedDeclarations option.
+*/
 /**
  * Matches (case-insensitive) any forbidden filename on Linux, macOS, and Windows.
  *
@@ -13,7 +16,7 @@
  *   - Linux/macOS: `. ..`
  * - Cannot end in a space or dot
  */
-export const INVALID_FILENAME_REGEX = new RegExp(
+export const INVALID_FILENAME_REGEX: RegExp = new RegExp(
     // eslint-disable-next-line no-control-regex
     /[*"\\/<>:|?\x00-\x1f]|^\.\.?$|^(?:CON|PRN|AUX|NUL|COM[0-9]|LPT[0-9])(?:\.|$)|\.$| $/i
 );
@@ -23,7 +26,7 @@ export const INVALID_FILENAME_REGEX = new RegExp(
  * and macOS.
  */
 // This is just a set. The "\x00-\x1f" represent ASCII control characters.
-export const INVALID_FILENAME_CHARS_REGEX = new RegExp(
+export const INVALID_FILENAME_CHARS_REGEX: RegExp = new RegExp(
     /[*"\\/<>:|?\x00-\x1f]/ // eslint-disable-line no-control-regex -- allow \x00-\x1f
 );
 
@@ -40,7 +43,7 @@ export const INVALID_FILENAME_CHARS_REGEX = new RegExp(
     (?:\.|$)                - either a dot (file exts) or end of the filename
     /i                      - matches case insensitively
 */
-export const INVALID_FILENAME_RESERVED_REGEX = new RegExp(
+export const INVALID_FILENAME_RESERVED_REGEX: RegExp = new RegExp(
     /^\.\.?$|(?:CON|PRN|AUX|NUL|COM[0-9]|LPT[0-9])(?:\.|$)/i
 );
 
@@ -52,7 +55,8 @@ export const INVALID_FILENAME_RESERVED_REGEX = new RegExp(
     \.$                     - ending in a dot
      $                      - ending in a space
 */
-export const INVALID_FILENAME_ENDING_REGEX = new RegExp(/\.$| $/);
+export const INVALID_FILENAME_ENDING_REGEX: RegExp = new RegExp(/\.$| $/);
+/* eslint-enable @typescript-eslint/no-inferrable-types */
 
 export const ERROR_MESSAGE_CHARS =
     'File name cannot contain any of these characters: * " \\ / < > : | ?';

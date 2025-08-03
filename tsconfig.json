@@ -1,14 +1,24 @@
 {
     "compilerOptions": {
-        "baseUrl": "./src",
+        "outDir": "./dist",
+        "rootDirs": ["./src"],
+        "composite": true,
         "inlineSourceMap": true,
         "inlineSources": true,
+        "strict": true,
         "module": "esnext",
         "target": "es6",
-        "allowJs": true,
-        "noImplicitAny": true,
+        "exactOptionalPropertyTypes": true,
+        "noFallthroughCasesInSwitch": true,
+        "noImplicitOverride": true,
+        "noImplicitReturns": true,
+        "noPropertyAccessFromIndexSignature": true,
+        "noUncheckedIndexedAccess": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
         "moduleResolution": "node",
         "importHelpers": true,
+        "isolatedDeclarations": true,
         "isolatedModules": true,
         "strictNullChecks": true,
         "lib": [
@@ -20,7 +30,6 @@
     },
     "include": [
         "./src/**/*.ts",
-        "./test/**/*.ts",
-        "test/lib.test.js"
+        "./test/**/*.ts"
     ]
 }

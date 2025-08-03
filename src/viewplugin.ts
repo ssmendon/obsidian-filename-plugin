@@ -1,3 +1,6 @@
+/* eslint-disable no-unused-labels
+-- DEV: label used in this file, and it is removed by esbuild.
+*/
 // Implementation of the ViewPlugin.
 
 import { EditorView, PluginValue, ViewPlugin } from "@codemirror/view";
@@ -8,8 +11,8 @@ import {
     ERROR_MESSAGE_RESERVED,
     KEYDOWN_INTERCEPTS,
     TITLE_QUERY_SELECTOR,
-} from "constants";
-import { InvalidReason, isFilenameInvalid } from "lib";
+} from "./constants";
+import { InvalidReason, isFilenameInvalid } from "./lib";
 import { displayTooltip } from "obsidian";
 
 /*
@@ -47,6 +50,7 @@ References:
 class SMTitleViewPlugin implements PluginValue {
     readonly #titleEl: HTMLDivElement;
     readonly #abort: AbortController | undefined;
+    // @ts-expect-error: Set in oldTitleText setter.
     #oldTitleText: string;
 
     private set oldTitleText(name: string | null) {
@@ -81,9 +85,7 @@ class SMTitleViewPlugin implements PluginValue {
             signal: this.#abort.signal,
         };
 
-        /* eslint-disable @typescript-eslint/no-unsafe-argument
-            -- .bind(this) is very loosely typed
-            */
+
         this.#titleEl.addEventListener(
             "blur",
             this.#onblur.bind(this),
@@ -104,14 +106,13 @@ class SMTitleViewPlugin implements PluginValue {
             this.#onkeydown.bind(this),
             eventOpts
         );
-        /* eslint-enable @typescript-eslint/no-unsafe-argument */
     }
 
     /**
      * Unregisters the plugin's event handlers. This basically renders it
      * inoperable in the current view, since it doesn't have an update() method.
      */
-    destroy() {
+    destroy(): void {
         this.#abort?.abort();
     }
 
@@ -160,8 +161,12 @@ class SMTitleViewPlugin implements PluginValue {
     }
     // When writing the title, check on every title change whether it's valid.
     // If not, display an error pop-up.
-    #oninput(this: SMTitleViewPlugin, event: InputEvent) {
+    #oninput(this: SMTitleViewPlugin, event: Event) {
         if (event.eventPhase !== event.AT_TARGET) {
+            return;
+        }
+        if (!(event instanceof InputEvent)) {
+            console.warn(`received generic Event in #oninput`);
             return;
         }
         if (event.isComposing) {
@@ -207,4 +212,4 @@ class SMTitleViewPlugin implements PluginValue {
         this.#resetInvalidTitle();
     }
 }
-export const TitleViewPlugin = ViewPlugin.fromClass(SMTitleViewPlugin);
+export const TitleViewPlugin: ViewPlugin<SMTitleViewPlugin> = ViewPlugin.fromClass(SMTitleViewPlugin);
