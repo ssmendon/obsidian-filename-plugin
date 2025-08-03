@@ -146,7 +146,7 @@ class SMTitleViewPlugin implements PluginValue {
         if (event.eventPhase !== event.AT_TARGET) {
             return;
         }
-        console.debug("SMTitleViewPlugin handling #onblur");
+        DEV: console.debug("SMTitleViewPlugin handling #onblur");
         this.#resetInvalidTitle(event);
     }
     // When focusing on the title, save the current contents. So we can reset
@@ -155,7 +155,7 @@ class SMTitleViewPlugin implements PluginValue {
         if (event.eventPhase !== event.AT_TARGET) {
             return;
         }
-        console.debug("SMTitleViewPlugin handling #onfocusin");
+        DEV: console.debug("SMTitleViewPlugin handling #onfocusin");
         this.oldTitleText = this.#titleEl.textContent;
     }
     // When writing the title, check on every title change whether it's valid.
@@ -170,7 +170,7 @@ class SMTitleViewPlugin implements PluginValue {
         const isInvalid = isFilenameInvalid(this.#titleEl.textContent, true);
         // If it's just an empty name, I'll let Obsidian handle it.
         if (isInvalid && isInvalid !== InvalidReason.Empty) {
-            console.debug("SMTitleViewPlugin handling #oninput");
+            DEV: console.debug("SMTitleViewPlugin handling #oninput");
             event.stopImmediatePropagation();
             let errorMessage: string;
             switch (isInvalid as InvalidReason) {
@@ -203,7 +203,7 @@ class SMTitleViewPlugin implements PluginValue {
         ) {
             return;
         }
-        console.debug("SMTitleViewPlugin handling #onkeydown");
+        DEV: console.debug("SMTitleViewPlugin handling #onkeydown");
         this.#resetInvalidTitle();
     }
 }

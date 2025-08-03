@@ -14,5 +14,10 @@ export default tselint.config(
                 tsconfigRootDir: import.meta.dirname,
             }
         }
+    },
+    {
+        rules: {
+            "no-unused-vars": "off", // -- DEV: label used by esbuild
+        }
     }
 );

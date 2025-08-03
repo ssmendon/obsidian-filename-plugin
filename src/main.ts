@@ -6,7 +6,7 @@ import { TitleViewPlugin } from "viewplugin";
 export default class SMFilenamesPlugin extends Plugin {
     onload() {
         this.registerEditorExtension([TitleViewPlugin]);
-        this.registerEvent(
+        DEV: this.registerEvent(
             this.app.vault.on("rename", ({ name }) => {
                 console.debug("rename occurred:", name);
             })

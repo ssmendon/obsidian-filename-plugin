@@ -26,6 +26,7 @@ const ctx = await esbuild.context({
     banner: { js: banner },
     bundle: true,
     define: { DEBUG: prod ? "false" : "true" },
+    dropLabels: prod ? ['DEV'] : [],
     entryPoints: ["src/main.ts"],
     format: "cjs",
     logLevel: "info",
