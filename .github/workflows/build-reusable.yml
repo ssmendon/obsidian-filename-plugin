@@ -1,0 +1,37 @@
+name: Lint, build, and test plugin
+permissions:
+  contents: read
+
+on:
+  workflow_call:
+    outputs:
+      artifact-id:
+        description: upload-artifact's artifact-id
+        value: ${{ jobs.build.outputs.artifact-id }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      artifact-id: ${{ steps.artifact-upload-step.outputs.artifact-id }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          cache: npm
+          cache-dependency-path: package-lock.json
+          node-version-file: package.json
+      - name: npm ci, lint, build, and test
+        run: |
+          npm ci
+          npm run lint
+          npm run build
+          npm test
+      - id: artifact-upload-step
+        name: Archive production artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          path: |
+            ./dist/*.js
+            ./dist/*.json
+          if-no-files-found: error

@@ -1,0 +1,39 @@
+name: Publish Obsidian plugin
+
+on:
+  push:
+    tags:
+    - v1.**
+
+jobs:
+  build:
+    uses: ./.github/workflows/build-reusable.yml
+
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    needs: build
+    steps:
+    - name: Download build artifacts
+      uses: actions/download-artifact@v4
+      with:
+        artifact-ids: ${{ needs.build.outputs.artifact-id }}
+
+    - name: Display structure of downloaded files
+      run: ls -R
+
+    - name: Create release
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        cd ./artifact
+
+        tag="${GITHUB_REF#refs/tags/}"
+        echo "Creating draft release..."
+        gh release create "$tag" \
+          *.js \
+          *.json \
+          --repo ssmendon/obsidian-filename-plugin \
+          --title="$tag" \
+          --draft
